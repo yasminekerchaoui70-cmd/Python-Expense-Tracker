@@ -26,6 +26,24 @@ def show_expenses():
 def show_total():
     total = sum(item["amount"] for item in expenses)
     print(f"Total : {total:.2f}")
+def delete_expense():
+    if not expenses:
+        print("No expenses to delete.")
+        return
+
+    show_expenses()
+
+    try:
+        number = int(input("Enter the number of the expense to delete: "))
+
+        if 1 <= number <= len(expenses):
+            deleted = expenses.pop(number - 1)
+            print(f"Expense '{deleted['description']}' deleted successfully!")
+        else:
+            print("Invalid expense number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
 
 
 def main():
@@ -34,7 +52,8 @@ def main():
         print("1. Add expense")
         print("2. Show expenses")
         print("3. Show total")
-        print("4. Exit")
+        print("4. Delete expense")
+        print("5. Exit")
 
         choice = input("Choose an option: ")
 
@@ -45,11 +64,11 @@ def main():
         elif choice == "3":
             show_total()
         elif choice == "4":
+            delete_expense()
+        elif choice == "5":
             print("Goodbye!")
             break
         else:
             print("Invalid choice.")
-
-
 if __name__ == "__main__":
     main()
